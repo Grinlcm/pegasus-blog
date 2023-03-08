@@ -1,0 +1,12 @@
+server:
+  appmode: debug
+  httpport: 8081
+
+database:
+  driver: mysql
+  port: 3306
+  username: pegasus
+  password: pegasus
+  host: 127.0.0.1
+  charset: utf8
+  dbName: pegasus
