@@ -3,7 +3,7 @@ package routes
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"net/http"
+	v1 "pegasus-blog/api/v1"
 	"pegasus-blog/util"
 )
 
@@ -14,11 +14,13 @@ func InitRouter() {
 
 	router := r.Group("api/v1")
 	{
-		router.GET("hello", func(c *gin.Context) {
-			c.JSON(http.StatusOK, gin.H{
-				"message": "你好",
-			})
-		})
+		// 用户模块的接口
+		router.POST("/user/add", v1.AddUser)
+		router.GET("/users", v1.GetUsers)
+		router.PUT("/user/:id", v1.EditUser)
+		router.DELETE("/user/:id", v1.DeleteUser)
+		// 文章模块的接口
+		// 登录模块的接口
 	}
 
 	r.Run(fmt.Sprintf(":%s", util.Appconfig.HttpPort))
