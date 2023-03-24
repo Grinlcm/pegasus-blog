@@ -8,11 +8,6 @@ import (
 	"strconv"
 )
 
-// UserExist 查询用户是否存在
-func UserExist(c *gin.Context) {
-
-}
-
 // AddUser 添加用户
 func AddUser(c *gin.Context) {
 	var data model.User
@@ -21,8 +16,8 @@ func AddUser(c *gin.Context) {
 	if code == errmsg.SUCCESS {
 		model.CreateUser(&data)
 	}
-	if code == errmsg.ERROR_USER_USED {
-		code = errmsg.ERROR_USER_USED
+	if code == errmsg.ErrorUserUsed {
+		code = errmsg.ErrorUserUsed
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -54,7 +49,7 @@ func GetUsers(c *gin.Context) {
 	})
 }
 
-// UpdateUser 编辑用户
+// EditUser 编辑用户
 func EditUser(c *gin.Context) {
 	var data model.User
 	id, _ := strconv.Atoi(c.Param("id"))
@@ -63,7 +58,7 @@ func EditUser(c *gin.Context) {
 	if code == errmsg.SUCCESS {
 		model.EditUser(id, &data)
 	}
-	if code == errmsg.ERROR_USER_USED {
+	if code == errmsg.ErrorUserUsed {
 		c.Abort()
 	}
 	c.JSON(http.StatusOK, gin.H{

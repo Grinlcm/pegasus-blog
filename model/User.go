@@ -20,7 +20,7 @@ func CheckUserName(name string) int {
 	var users User
 	DB.Select("id").Where("username = ? ", name).First(&users)
 	if users.ID > 0 {
-		return errmsg.ERROR_USER_USED
+		return errmsg.ErrorUserUsed
 	}
 	return errmsg.SUCCESS
 }
@@ -52,7 +52,7 @@ func (u *User) BeforeSave(tx *gorm.DB) (err error) {
 	return nil
 }
 
-// 编辑用户
+// EditUser 编辑用户
 func EditUser(id int, data *User) {
 	var updataMap = make(map[string]interface{})
 	updataMap["name"] = data.Username
@@ -61,7 +61,7 @@ func EditUser(id int, data *User) {
 
 }
 
-// 删除用户
+// DeleteUser 删除用户
 func DeleteUser(id int) int {
 	var user User
 	err = DB.Where("id = ?").Delete(&user).Error
