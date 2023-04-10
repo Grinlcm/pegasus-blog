@@ -18,7 +18,7 @@ type User struct {
 
 func CheckUserName(name string) int {
 	var users User
-	DB.Select("id").Where("username = ? ", name).First(&users)
+	DB.Select("id").Where("username = ?", name).First(&users)
 	if users.ID > 0 {
 		return errmsg.ErrorUserUsed
 	}
@@ -80,4 +80,21 @@ func ScryptPw(password string) (string, error) {
 		fmt.Println("加密报错")
 	}
 	return base64.StdEncoding.EncodeToString(hashPWD), err
+}
+
+// 登录验证
+func CheckLogin(username string, password string) int {
+	var user User
+	err := DB.Where("username =?", username).First(&user).Error
+	if err != nil {
+		return errmsg.ERROR
+	}
+	if user.ID == 0 {
+		return errmsg.ErrorUserNotExist
+	}
+	if pass, _ := ScryptPw(password); pass != user.Password {
+		return errmsg.ErrorPasswordWrong
+	}
+
+	return errmsg.SUCCESS
 }
