@@ -1,6 +1,7 @@
 server:
   appmode: debug
   httpport: 8081
+  jwtKey: 89ioklhj01
 
 database:
   driver: mysql

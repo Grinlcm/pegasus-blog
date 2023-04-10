@@ -9,6 +9,7 @@ import (
 type AppConfigS struct {
 	AppMode  string
 	HttpPort string
+	JwtKey   string
 }
 
 type DBConfigS struct {
